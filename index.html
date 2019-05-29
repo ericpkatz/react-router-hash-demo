@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.0/react-router-dom.js'></script>
+  </head>
+  <body>
+    <div id='root'></div>
+    <script type='text/babel'>
+      const Router = ReactRouterDOM.HashRouter;
+      const Route = ReactRouterDOM.Route;
+      const Link = ReactRouterDOM.Link;
+
+      const ILoveHRS = (props)=> {
+        return (
+          <div>
+            <hr />
+            { props.children }
+            <hr />
+          </div>
+        );
+      };
+      const Home = ()=> {
+        return (
+          <ILoveHRS>
+            <div>Home</div>
+          </ILoveHRS>
+        );
+      }
+      const About = ()=> <div>About</div>;
+      const Contact = ()=> <div>Contact</div>;
+
+      const Nav = (props) => {
+        const current = props.location.pathname.slice(1);
+        return (
+          <div>
+            <Link to='/home' style={{ textDecoration: current === 'home' ? 'none': 'underline' }}>Home</Link> 
+            { ' ' }
+            <Link to='/about' style={{ textDecoration: current === 'about' ? 'none': 'underline' }}>About</Link> 
+            { ' ' }
+            <Link to='/contact' style={{ textDecoration: current === 'contact' ? 'none': 'underline' }}>Contact</Link> 
+          </div>
+        );
+      }
+      
+      const App = ()=> {
+        return (
+          <Router>
+            <h1>Hello World</h1>
+            <Route component={ Nav } />
+            <Route path='/home' component={ Home } />
+            <Route path='/about' component={ About } />
+            <Route path='/contact' component={ Contact } />
+          </Router>
+        );
+      };
+      const root = document.querySelector('#root');
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
